@@ -1,0 +1,105 @@
+@mixin on-circle($item-count, $circle-size, $item-size) {
+  position: relative;
+  width:  $circle-size;
+  height: $circle-size;
+  padding: 0;
+  border-radius: 50%; 
+  list-style: none;       
+  
+  > * {
+    display: block;
+    position: absolute;
+    top:  50%; 
+    left: 50%;
+    width:  $item-size;
+    height: $item-size;
+    margin: -($item-size / 2);
+  
+    $angle: (360 / $item-count);
+    $rot: 10;
+
+    @for $i from 1 through $item-count {
+      &:nth-of-type(#{$i}) {
+        transform: 
+          rotate($rot * 1deg) 
+          translate($circle-size / 2) 
+          rotate($rot * -1deg);
+      }
+
+      $rot: $rot + $angle;
+    }
+  }
+}
+@font-face {
+  font-family: "TTNorms";
+  src: url(../fonts/TTNorms-Regular.woff);
+  font-weight: normal;
+}
+@font-face {
+  font-family: "TTNorms";
+  src: url(../fonts/TTNorms-Medium.woff);
+  font-weight: 500;
+}
+@font-face {
+  font-family: "TTNorms";
+  src: url(../fonts/TTNorms-ExtraBold.woff);
+  font-weight: 800;
+}
+@font-face {
+  font-family: "TTNorms";
+  src: url(../fonts/TTNorms-Bold.woff);
+  font-weight: 700;
+}
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  font-family: "TTNorms", sans-serif;
+}
+body {
+  background: -webkit-linear-gradient(
+    90deg,
+    rgb(28, 26, 34),
+    rgb(33, 30, 40) 100%
+  );
+  background: -moz-linear-gradient(
+    90deg,
+    rgb(28, 26, 34),
+    rgb(33, 30, 40) 100%
+  );
+  background: linear-gradient(90deg, rgb(28, 26, 34), rgb(33, 30, 40) 100%);
+}
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.header {
+  padding-top: 100px;
+  h1 {
+    background: linear-gradient(
+      270deg,
+      rgb(30, 26, 39),
+      rgb(255, 255, 255) 35%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+    font-size: 72px;
+    margin-bottom: 100px;
+  }
+}
+.circle{
+    &__container{
+        @include on-circle($item-count: 16, $circle-size: 1050px, $item-size: 120px); 
+        li{
+        overflow: hidden;
+        img{
+            display: block;
+            border-radius: 100px;
+            width: 100px;
+            height: 100px;
+            object-fit:cover;
+        }
+      }
+    }
+}
